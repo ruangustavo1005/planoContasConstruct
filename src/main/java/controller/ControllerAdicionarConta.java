@@ -35,8 +35,19 @@ public class ControllerAdicionarConta {
         this.viewAdicionarConta.adicionaAcaoAdicionar((ActionEvent e) -> {
             Conta conta  = this.viewAdicionarConta.getContaFromView();
             if (conta != null) {
-                ControllerIndex.getInstance().adicionarConta(conta);
-                this.viewAdicionarConta.dispose();
+                boolean contaExiste = false;
+                for(Conta contaIterada : ControllerIndex.getInstance().getViewIndex().getTableModelConta().getContas()) {
+                    if (contaIterada.getCodigo().equals(conta.getCodigo())) {
+                        contaExiste = true;
+                    }
+                }
+                if (contaExiste) {
+                    JOptionPane.showMessageDialog(this.viewAdicionarConta, "A conta " + conta.getCodigo() + " já existe!", "Atenção", JOptionPane.WARNING_MESSAGE);
+                }
+                else {
+                    ControllerIndex.getInstance().adicionarConta(conta);
+                    this.viewAdicionarConta.dispose();
+                }
             }
             else {
                 JOptionPane.showMessageDialog(this.viewAdicionarConta, "Houve um erro ao inserir, verifique os dados cadastrais da conta", "Atenção", JOptionPane.WARNING_MESSAGE);

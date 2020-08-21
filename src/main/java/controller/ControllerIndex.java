@@ -2,7 +2,6 @@ package controller;
 
 import dao.DaoContaPadrao;
 import java.awt.event.ActionEvent;
-import java.math.BigInteger;
 import javax.swing.JOptionPane;
 import model.Conta;
 import view.TableModelConta;
@@ -66,7 +65,7 @@ public class ControllerIndex {
             if (indice >= 0) {
                 Conta conta = this.viewIndex.getTableModelConta().get(indice);
                 if (conta.isAnalitica() && conta.getValor() != 0) {
-                    if (JOptionPane.showConfirmDialog(this.viewIndex, "A conta selecionada é analítica e por isso a movimentação desta conta\nserá repassada para a conta que será criada agora. Deseja continuar?", "Atenção", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    if (JOptionPane.showConfirmDialog(this.viewIndex, "A conta selecionada é analítica e por isso a movimentação desta conta\nserá repassada para a conta que será criada agora.\nDeseja continuar?", "Atenção", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                         ControllerAdicionarConta.getInstance().montaTela(conta);
                     }
                 }
@@ -107,6 +106,10 @@ public class ControllerIndex {
         tableModel.update(tableModel.getContas().indexOf(conta.getContaPai()));
         
         this.sortContas();
+    }
+
+    public ViewIndex getViewIndex() {
+        return viewIndex;
     }
     
     private void sortContas() {
